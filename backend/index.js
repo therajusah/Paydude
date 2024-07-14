@@ -1,8 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const mainRouter = require("./routes");
-
-// const v2Router = require("./v2Routes"); 
+const mainRouter = require("./routes/index");
 
 const app = express();
 const router = express.Router();
@@ -20,9 +18,6 @@ router.get("/", function (req, res, next) {
 });
 
 router.use("/api/v1", mainRouter);
-
-
-// router.use("/api/v2", v2Router);
 
 app.listen(PORT, function (err) {
   if (err) {
