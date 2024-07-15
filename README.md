@@ -32,7 +32,7 @@ Make sure you have the following installed:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/paydude.git
+   git clone https://github.com/therajusah/paydude.git
    cd paydude
    ```
 
