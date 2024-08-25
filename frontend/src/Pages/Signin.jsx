@@ -6,11 +6,13 @@ import { Button } from "../Components/Button";
 import { Heading } from "../Components/Heading";
 import { InputBox } from "../Components/InputBox";
 import { SubHeading } from "../Components/SubHeading";
+import { useSnackbar } from "notistack";
 
 export const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleSignin = async () => {
     try {
@@ -19,8 +21,10 @@ export const Signin = () => {
         password,
       });
       localStorage.setItem("token", response.data.token);
+      enqueueSnackbar("Sign in successful!", { variant: "success" });
       navigate("/dashboard");
     } catch (error) {
+      enqueueSnackbar("Sign in failed. Please check your credentials.", { variant: "error" });
       console.error("Sign in failed", error);
     }
   };
