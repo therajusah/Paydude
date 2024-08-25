@@ -3,13 +3,14 @@ import axios from "axios";
 import { Appbar } from "../Components/Appbar";
 import { Balance } from "../Components/Balance";
 import { Users } from "../Components/Users";
+import { API_BASE_URL } from "../config";
 
 export const Dashboard = () => {
     const [balance, setBalance] = useState(null);
 
     const getBalance = async () => {
         try {
-            const response = await axios.get("http://localhost:3000/api/v1/account/balance", {
+            const response = await axios.get(`${API_BASE_URL}/api/v1/account/balance`, {
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("token")
                 }

@@ -7,6 +7,7 @@ import { Heading } from "../Components/Heading";
 import { InputBox } from "../Components/InputBox";
 import { SubHeading } from "../Components/SubHeading";
 import { useSnackbar } from "notistack";
+import { API_BASE_URL } from "../config";
 
 export const Signin = () => {
   const [email, setEmail] = useState("");
@@ -16,7 +17,7 @@ export const Signin = () => {
 
   const handleSignin = async () => {
     try {
-      const response = await axios.post("http://localhost:3000/api/v1/user/signin", {
+      const response = await axios.post(`${API_BASE_URL}/api/v1/user/signin`, {
         email,
         password,
       });

@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState } from 'react';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from "../config";
 
 export const SendMoney = () => {
     const [searchParams] = useSearchParams();
@@ -16,7 +17,7 @@ export const SendMoney = () => {
     const handleSendMoney = async () => {
         setLoading(true);
         try {
-            await axios.post("http://localhost:3000/api/v1/account/transfer", {
+            await axios.post(`${API_BASE_URL}/api/v1/account/transfer`, {
                 to: id,
                 amount
             }, {
