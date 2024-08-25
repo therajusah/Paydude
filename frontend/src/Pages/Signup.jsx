@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom"
 export const Signup = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
-    const [username, setUsername] = useState("");
+    const [email, setemail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
@@ -26,15 +26,15 @@ export const Signup = () => {
           setLastName(e.target.value);
         }} placeholder="Doe" label={"Last Name"} />
         <InputBox onChange={e => {
-          setUsername(e.target.value);
-        }} placeholder="email@email.com" label={"Email"} />
+          setemail(e.target.value);
+        }} placeholder="Youremail@email.com" label={"Email"} />
         <InputBox onChange={(e) => {
           setPassword(e.target.value)
         }} placeholder="123456" label={"Password"} type={"password"}/>
         <div className="pt-4">
           <Button onClick={async () => {
             const response = await axios.post("http://localhost:3000/api/v1/user/signup", {
-              username,
+              email,
               firstName,
               lastName,
               password

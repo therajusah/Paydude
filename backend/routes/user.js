@@ -9,14 +9,14 @@ const authMiddleware = require("../middleware");
 
 // Schemas
 const signupBody = zod.object({
-  username: zod.string().email(),
+  email: zod.string().email(),
   firstName: zod.string(),
   lastName: zod.string(),
   password: zod.string(),
 });
 
 const signinBody = zod.object({
-  username: zod.string().email(),
+  email: zod.string().email(),
   password: zod.string(),
 });
 
@@ -29,9 +29,9 @@ const accountSchema = zod.object({
 // Route for user signup
 router.post("/signup", async (req, res) => {
   try {
-    const { username, firstName, lastName, password } = signupBody.parse(req.body);
+    const { email, firstName, lastName, password } = signupBody.parse(req.body);
 
-    const existingUser = await User.findOne({ username });
+    const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(409).json({ message: "Email already taken" });
     }
@@ -39,7 +39,7 @@ router.post("/signup", async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await User.create({
-      username,
+      email,
       firstName,
       lastName,
       password: hashedPassword,
@@ -72,16 +72,16 @@ router.post("/signup", async (req, res) => {
 // Route for user signin
 router.post("/signin", async (req, res) => {
   try {
-    const { username, password } = signinBody.parse(req.body);
+    const { email, password } = signinBody.parse(req.body);
 
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ email });
     if (!user) {
-      return res.status(401).json({ message: "Invalid username or password" });
+      return res.status(401).json({ message: "Invalid email or password" });
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return res.status(401).json({ message: "Invalid username or password" });
+      return res.status(401).json({ message: "Invalid email or password" });
     }
 
     const token = jwt.sign({ userId: user._id }, JWT_SECRET);
@@ -127,11 +127,11 @@ router.get("/bulk", async (req, res) => {
         { firstName: { $regex: filter, $options: "i" } },
         { lastName: { $regex: filter, $options: "i" } },
       ],
-    }, { username: 1, firstName: 1, lastName: 1, _id: 1 });
+    }, { email: 1, firstName: 1, lastName: 1, _id: 1 });
 
     res.json({
       users: users.map(user => ({
-        username: user.username,
+        email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
         _id: user._id,
