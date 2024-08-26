@@ -3,7 +3,7 @@ import axios from "axios";
 import { useState } from 'react';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
-import { API_BASE_URL } from "../config";
+import { API_BASE_URL } from "../../config";
 
 export const SendMoney = () => {
     const [searchParams] = useSearchParams();

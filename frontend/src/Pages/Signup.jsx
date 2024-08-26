@@ -7,7 +7,7 @@ import { Heading } from "../Components/Heading";
 import { InputBox } from "../Components/InputBox";
 import { SubHeading } from "../Components/SubHeading";
 import { useSnackbar } from "notistack";
-import { API_BASE_URL } from "../config";
+import { API_BASE_URL } from "../../config";
 
 export const Signup = () => {
   const [firstName, setFirstName] = useState("");
@@ -20,9 +20,9 @@ export const Signup = () => {
   const handleSignup = async () => {
     try {
       const response = await axios.post(`${API_BASE_URL}/api/v1/user/signup`, {
+        email,
         firstName,
         lastName,
-        email,
         password,
       });
       localStorage.setItem("token", response.data.token);

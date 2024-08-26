@@ -7,7 +7,7 @@ import { Heading } from "../Components/Heading";
 import { InputBox } from "../Components/InputBox";
 import { SubHeading } from "../Components/SubHeading";
 import { useSnackbar } from "notistack";
-import { API_BASE_URL } from "../config";
+import { API_BASE_URL } from "../../config";
 
 export const Signin = () => {
   const [email, setEmail] = useState("");
